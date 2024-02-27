@@ -35,7 +35,7 @@ useEffect(getRecipes, [keyword])
                 onKeyDown={event => event.key === 'Enter' && setKeyword(event.target.value)}
                 />
 
-            <Grid sx={{ mt: '0.5rem' }} container spacing={3}>
+            <Grid sx={{ mt: '0.5rem', justifyContent:'center' }} container spacing={3}>
               { recipes.length > 0 ? recipes.map(recipe => ( <Grid key={recipe.id} item xs={4}>
                     <Card sx={{ maxWidth: 345, height: '100%' }}>
                         <CardActionArea sx={{height: '100%'}}>
@@ -53,7 +53,7 @@ useEffect(getRecipes, [keyword])
                             </CardContent>
                         </CardActionArea>
                     </Card>
-                </Grid>)) : <img src={emptyIcon} width='50%' alt=''/>}
+                </Grid>)) : <img src={emptyIcon} width='30%' alt=''/>}
             </Grid>
         </Container>
     );
