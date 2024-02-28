@@ -1,12 +1,16 @@
 import { Card, CardContent, CardMedia, Container, Grid, TextField, Typography, CardActionArea } from "@mui/material";
 import { useEffect, useState } from "react";
 import emptyIcon from '../../assets/images/undraw_no_data_re_kwbl.svg';
+import loadingIcon from '../../assets/images/infinite-spinner.svg';
+import { Link } from "react-router-dom";
 
 export default function Recipes() {
     const [recipes, setRecipes] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const getRecipes = () => {
+        setLoading(true);
             //prepare URL
             const url = new URL ('https://api.spoonacular.com/recipes/complexSearch');
             url.searchParams.append('apiKey', process.env.REACT_APP_SPOONACULAR_API_KEY);
@@ -22,6 +26,7 @@ export default function Recipes() {
             .catch(error => {
                 console.log(error);
             })
+            .finally(() => setLoading(false))
 
     }
 useEffect(getRecipes, [keyword])
@@ -36,7 +41,7 @@ useEffect(getRecipes, [keyword])
                 />
 
             <Grid sx={{ mt: '0.5rem', justifyContent:'center' }} container spacing={3}>
-              { recipes.length > 0 ? recipes.map(recipe => ( <Grid key={recipe.id} item xs={4}>
+              { loading ? <img src={loadingIcon} width='50%'alt='' /> : recipes.length > 0 ? recipes.map(recipe => ( <Grid key={recipe.id} item xs={4}>
                     <Card sx={{ maxWidth: 345, height: '100%' }}>
                         <CardActionArea sx={{height: '100%'}}>
                             <CardMedia
@@ -46,10 +51,12 @@ useEffect(getRecipes, [keyword])
                                 alt={recipe.title}
                             />
                             <CardContent sx={{height: '100%'}}>
-                                <Typography gutterBottom variant="h5" component="div">
+                               <Link to={`/recipies/${recipe.id}`}>
+                               <Typography gutterBottom variant="h5" component="div">
                                     {recipe.title}
                                 </Typography>
 
+                               </Link>
                             </CardContent>
                         </CardActionArea>
                     </Card>
