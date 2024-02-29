@@ -51,7 +51,7 @@ useEffect(getRecipes, [keyword])
                                 alt={recipe.title}
                             />
                             <CardContent sx={{height: '100%'}}>
-                               <Link to={`/recipies/${recipe.id}`}>
+                               <Link to={`/recipes/${recipe.id}`}>
                                <Typography gutterBottom variant="h5" component="div">
                                     {recipe.title}
                                 </Typography>
