@@ -35,11 +35,12 @@ export default function AddRecipe() {
             //     'Content-type': 'multipart/form-data' or 'application/json' or 'urlencoded'
             // }
         });
-        const data = response
-        console.log(data)
-
         // Update message based on response status
+        if (response.status !== 201) {
+            setMessage('Failed to add recipe!');
+        } 
         // Open collapsible Alert
+        setOpen(true);
         // Set loading to false
         setLoading(false);
     }
